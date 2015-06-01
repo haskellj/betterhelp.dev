@@ -19,10 +19,8 @@ class SurveyController extends BaseController {
 			}
 			
 		}
-
 		
 		return Redirect::to('stats');
-		
 	}
 
 }
