@@ -6,7 +6,7 @@
 		protected $table = 'surveys';
 
 
-		// connects each question to its survey
+		// connects each survey to its question
 		public function question()
 		{	
 			return $this->belongsTo('Question');
