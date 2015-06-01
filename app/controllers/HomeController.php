@@ -28,4 +28,17 @@ class HomeController extends BaseController {
 		return View::make('survey')->with($data);
 	}
 
+	public function showResults()
+	{
+		// $questions = Question::all();
+		// $answers = Answer::with('question')->get();
+
+		// $data = [
+		// 	'questions' => $questions,
+		// 	'answers' 	=> $answers
+		// ];
+
+		return View::make('results');
+	}
+
 }
