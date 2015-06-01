@@ -11,9 +11,9 @@
 				@foreach($answers as $answer)
 					@if($answer->question_id == $question->id)
 						@if($question->multiple_answers == 0)
-							<input type='radio' id="{{{ $answer->answer }}}" name="{{{ $question->type }}}" value="{{{ $answer->answer }}}" />
+							<input type='radio' id="{{{ $answer->answer }}}" name="{{{ $question->type }}}[]" value="{{{ $answer->answer }}}" />
 						@else
-							<input type='checkbox' id="{{{ $answer->answer }}}" name="{{{ $question->type }}}" value="{{{ $answer->answer }}}" />
+							<input type='checkbox' id="{{{ $answer->answer }}}" name="{{{ $question->type }}}[]" value="{{{ $answer->answer }}}" />
 						@endif
 						<label for="{{{ $answer->answer }}}">{{{ $answer->answer }}}</label><br>
 					@endif
