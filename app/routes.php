@@ -12,5 +12,6 @@
 */
 
 Route::get('/', 'HomeController@showSurvey');
+Route::get('stats', 'HomeController@showResults');
 
 Route::controller('results', 'SurveyController');
