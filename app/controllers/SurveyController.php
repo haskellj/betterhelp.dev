@@ -5,30 +5,24 @@ class SurveyController extends BaseController {
 
 	public function postSurvey()
 	{
-		 
-		$survey = new Survey;
-		$survey->user_id = Auth::user()->user_id;
-		$survey->title = Input::get('title');
-		$survey->body = Input::get('body');
-		$survey->slug = Input::get('title');	// will connect individual words in the title with hyphens for use as a url appendage
-		$survey->save();
+		$questions = Question::all();
+
+		foreach($questions as $question){
+			$type = $question->type;
+			$typeResults = Input::get($question->type);
+					
+			foreach($typeResults as $answer){
+				$survey = new Survey;
+				$survey->question_id = $question->id;
+				$survey->answer = $answer;
+				$survey->save();
+			}
+			
+		}
 
 		
-		return Redirect::action('SurveyController@showResults');
+		return Redirect::to('stats');
 		
-	}
-
-	public function showResults()
-	{
-		// $questions = Question::all();
-		// $answers = Answer::with('question')->get();
-
-		// $data = [
-		// 	'questions' => $questions,
-		// 	'answers' 	=> $answers
-		// ];
-
-		return View::make('results');
 	}
 
 }
