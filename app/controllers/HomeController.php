@@ -15,9 +15,17 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function showSurvey()
 	{
-		return View::make('hello');
+		$questions = Question::all();
+		$answers = Answer::with('question')->get();
+
+		$data = [
+			'questions' => $questions,
+			'answers' 	=> $answers
+		];
+
+		return View::make('survey')->with($data);
 	}
 
 }
