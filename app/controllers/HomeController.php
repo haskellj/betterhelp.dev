@@ -30,15 +30,39 @@ class HomeController extends BaseController {
 
 	public function showResults()
 	{
-		// $questions = Question::all();
-		// $answers = Answer::with('question')->get();
+		$questions = Question::all();
+		$data = [];
 
-		// $data = [
-		// 	'questions' => $questions,
-		// 	'answers' 	=> $answers
-		// ];
+		foreach($questions as $question){
+			
+			if($question->type != 'sex'){
+				$mostCommonFemaleAnswer = Survey::select(array('answer', DB::raw('COUNT(*) `occurrence`')))
+										->where('question_id','=', $question->id)
+										->whereGender('Female')
+										->groupBy('answer')
+										->orderBy('occurrence', 'DESC')
+										->first();
+				
+				$mostCommonMaleAnswer = Survey::select(array('answer', DB::raw('COUNT(*) `occurrence`')))
+										->where('question_id','=', $question->id)
+										->whereGender('Male')
+										->groupBy('answer')
+										->orderBy('occurrence', 'DESC')
+										->first();
+			
 
-		return View::make('results');
+				$data["female$question->id"] = $mostCommonFemaleAnswer;
+				$data["male$question->id"] = $mostCommonMaleAnswer;
+			}
+			
+		}
+
+		$data['questions'] = $questions;
+
+		// var_dump($data);
+		// dd();
+
+		return View::make('results')->with($data);
 	}
 
 }
